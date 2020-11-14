@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.9.5/tailwind.min.css" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<style>
+	.content {
+		opacity: 0;
+		transform: translate3d(10%, 20%, 0px);
+		transition: .5s ease-in-out;
+	}
+
+	.active {
+		opacity: 1;
+		transform: translate3d(0%, 0%, 0px);
+	}
+
+</style>
+<body class="bg-gray-900">
+	<div class="fixed w-full top-0 py-10 bg-gray-900 z-50 border-b-2 border-white-300">
+		<h1 class="text-gray-200 font-bold text-2xl sm:text-4xl uppercase text-center">
+			Vigadores ultimato
+		</h1>
+	</div>
+	<div class="listHeros mt-20 flex flex-col justify-center items-center mb-20"></div>
+
+	<script>
+		$(document).ready(function(){
+			const listHeros = [
+				{
+					name: "Viúva Negra",
+					description : "Viúva Negra, é uma personagem das histórias em quadrinhos do Universo Marvel, publicado pela Marvel Comics. Criada por Stan Lee, Don Rico e Don Heck, a personagem apareceu pela primeira vez em Tales of Suspense.",
+					img : "https://rollingstone.uol.com.br/media/_versions/viuva_negra_-_divulgacao_marvel_widelg.jpg"
+				},
+				{
+					name: "Capitão América",
+					description : "Capitão América é um super-herói de histórias em quadrinhos americanos publicado pela Marvel Comics. Criado por Joe Simon e Jack Kirby, o primeiro personagem apareceu em Captain America Comics # 1 da Timely Comics, antecessora da Marvel Comics.",
+					img : "https://kanto.legiaodosherois.com.br/w760-h398-gnw-cfill-q80/wp-content/uploads/2019/12/legiao_FJBwxfmnKjIzkOGeWLYu2sldM3NV74DoyHtar6ZQX_.jpg.jpeg"
+				},
+				{
+					name: "Homem de Ferro",
+					description : "Homem de Ferro é um personagem fictício dos quadrinhos publicados pela Marvel Comics. Sua identidade verdadeira é a do empresário e bilionário Tony Stark, que usa armaduras de alta tecnologia no combate ao crime.",
+					img : "https://cinepop.com.br/wp-content/uploads/2019/11/tony-stark.jpg"
+				},
+				{
+					name: "Thor",
+					description : "Thor é um personagem fictício que aparece nas histórias em quadrinhos publicadas pela Marvel Comics. Baseado no deus Thor da Mitologia Nórdica, ele foi criado por Stan Lee, Larry Lieber e Jack Kirby. Estreando na Era de Prata dos quadrinhos, o personagem apareceu pela primeira vez em Journey into Mystery #83.",
+					img : "https://kanto.legiaodosherois.com.br/w760-h398-gnw-cfill-q80/wp-content/uploads/2019/06/legiao_Oxl9k2sZmvdG5_UinPp0BruX7CDb6agHN4R3zQIKE8.jpg.jpeg"	
+				}
+			]
+
+			function createCard() {
+				listHeros.map(item => {
+					$(`
+						<div class="content mb-5 py-20 w-5/6 sm:w-4/6">
+							<h1 class="text-center mb-4 text-gray-600 text-4xl uppercase font-bold bg-gray-800 p-3 rounded-t-lg">${item.name}</h1>
+					
+							<div class="p-3 flex flex-col sm:flex-row justify-center items-center">
+								<div class="border-2 boder-white my-5">
+									<img class="py-2"  src="${item.img}" width="300" alt="">
+								</div>
+			
+								<p class="text-gray-200 text-lg ml-5 w-6/6 sm:w-4/6">
+									${item.description}
+								</p>	
+							</div>
+						</div>
+						`).appendTo('.listHeros')
+				})
+			}
+
+			createCard()			
+
+			let item = $('.content');
+
+			function initScroll() {
+				let documentTop = $(document).scrollTop() + 230;
+
+				item.each(function(){
+					let itemTop = $(this).offset().top;
+					documentTop > itemTop && $(this).addClass('active');
+				})
+			} 
+
+			initScroll()
+
+			$(window).on('scroll', initScroll)
+		})
+	</script>
+</body>
+</html>
